@@ -1,4 +1,4 @@
-{ stdenv , fetchurl , jre , python , makeWrapper , gawk , bash , getopt , procps}:
+{ stdenv , fetchurl , jre , pythonPackages , makeWrapper , gawk , bash , getopt , procps}:
 
 let
 
@@ -12,6 +12,12 @@ let
 
     nativeBuildInputs = [ makeWrapper ];
 
+    propagatedBuildInputs = with pythonPackages; [ python readline ];
+
+    patchPhase = ''
+      sed -i '40iimport readline; print(readline)' bin/cqlsh.py
+    '';
+
     installPhase = ''
       mkdir $out
       mv * $out
@@ -24,8 +30,6 @@ let
           --prefix PATH : ${gawk}/bin \
           --prefix PATH : ${procps}/bin
       done
-
-      sed -i '66s/pass/print "no readline"/' $out/bin/cqlsh.py
       '';
 
     meta = with stdenv.lib; {
