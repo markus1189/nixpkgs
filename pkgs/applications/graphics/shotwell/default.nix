@@ -1,7 +1,7 @@
 { fetchurl, stdenv, m4, glibc, gtk3, libexif, libgphoto2, libsoup, libxml2, vala_0_28, sqlite
 , webkitgtk, pkgconfig, gnome3, gst_all_1, which, udev, libgudev, libraw, glib, json_glib
 , gettext, desktop_file_utils, lcms2, gdk_pixbuf, librsvg, wrapGAppsHook
-, gnome_doc_utils, hicolor_icon_theme, itstool, libgdata }:
+, gnome_doc_utils, hicolor_icon_theme, itstool, libgdata, glib_networking }:
 
 # for dependencies see http://www.yorba.org/projects/shotwell/install/
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
                   which udev libgudev gnome3.gexiv2 hicolor_icon_theme
                   libraw json_glib gettext desktop_file_utils glib lcms2 gdk_pixbuf librsvg
                   gnome_doc_utils gnome3.rest gnome3.gcr
-                  gnome3.defaultIconTheme itstool libgdata ];
+                  gnome3.defaultIconTheme itstool libgdata glib_networking];
 
   meta = with stdenv.lib; {
     description = "Popular photo organizer for the GNOME desktop";
