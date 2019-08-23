@@ -1,25 +1,21 @@
-{ stdenv, jdk, jre, coursier, makeWrapper }:
+{ stdenv, jre, coursier, makeWrapper, fetchcoursier }:
 
 let
   baseName = "scalafix";
-  version = "0.9.0";
-  deps = stdenv.mkDerivation {
-    name = "${baseName}-deps-${version}";
-    buildCommand = ''
-      export COURSIER_CACHE=$(pwd)
-      ${coursier}/bin/coursier fetch ch.epfl.scala:scalafix-cli_2.12.7:${version} > deps
-      mkdir -p $out/share/java
-      cp $(< deps) $out/share/java/
-    '';
-    outputHashMode = "recursive";
-    outputHashAlgo = "sha256";
-    outputHash     = "19j260prx7k010nxyvc1m9jj1ncxr73m2cym7if39360v5dc05c0";
+  version = "0.9.6";
+  deps = fetchcoursier {
+    groupId = "ch.epfl.scala";
+    artifactId = "scalafix-cli_2.12.8";
+    sha256 = "07b0kra6n9r3h1ymd9nfivjkmi0dryjpll33iq7hrmf90ifj727y";
+    inherit version;
   };
 in
 stdenv.mkDerivation rec {
   name = "${baseName}-${version}";
 
-  buildInputs = [ jdk makeWrapper deps ];
+  nativeBuildInputs = [ makeWrapper ];
+
+  buildInputs = [ jre deps ];
 
   doCheck = true;
 
