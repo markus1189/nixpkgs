@@ -280,6 +280,8 @@ in
 
   fetchhg = callPackage ../build-support/fetchhg { };
 
+  fetchcoursier = callPackage ../build-support/fetchcoursier { };
+
   # `fetchurl' downloads a file from the network.
   fetchurl = makeOverridable (import ../build-support/fetchurl) {
     inherit lib stdenvNoCC;
