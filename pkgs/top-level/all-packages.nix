@@ -6403,6 +6403,8 @@ in
 
   tboot = callPackage ../tools/security/tboot { };
 
+  tcolors = callPackage ../tools/graphics/tcolors { };
+
   tcpdump = callPackage ../tools/networking/tcpdump { };
 
   tcpflow = callPackage ../tools/networking/tcpflow { };
